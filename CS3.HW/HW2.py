@@ -11,16 +11,29 @@ def main():
     otherlist4 = thislist.copy()
     otherlist5 = thislist.copy()
 
-    selctionList = selctionSort(otherlist, listLength)
-    bubbleList = bubbleSort(thislist, listLength)
-    insertionList = insertionSort(otherlist2, listLength)
-    mergeList = mergeSort(otherlist3, 0,listLength -1)
-    quickList = quickSort(otherlist4, 0, listLength-1)
     start=time.time()
-    pythonList = sorted(otherlist5)
-    end=time.time()
-    elapse = end - start
-    print(f"python sort sort time elapse: {elapse}" )
+    selctionSort(otherlist, listLength)
+    print(f"selection sort time elapse: {time.time() - start}")
+
+    start=time.time()
+    bubbleSort(thislist, listLength)
+    print(f"bubble sort time elapse: {time.time() - start}")
+
+    start=time.time()
+    insertionSort(otherlist2, listLength)
+    print(f"insertion sort time elapse: {time.time() - start}")
+    
+    start=time.time()
+    mergeSort(otherlist3, 0,listLength -1)
+    print(f"merge sort time elapse: {time.time() - start}")
+    
+    start=time.time()
+    quickSort(otherlist4, 0, listLength-1)
+    print(f"quickSort sort time elapse: {time.time() - start}")
+
+    start=time.time()
+    sorted(otherlist5)
+    print(f"python sort time elapse: {time.time() - start}" )
 
 
     #print(pythonList)
@@ -38,39 +51,27 @@ def randomNumbers():
     return randomlist
 
 def bubbleSort(randomlist, listLength):
-    start=time.time()
     for x in range(listLength):
         for y in range(listLength - x - 1):
             if randomlist[y] > randomlist[y + 1]:
                 randomlist[y],randomlist[y+1] = randomlist[y+1], randomlist[y]
-    end=time.time()
-    elapse = end - start
-    print(f"bubble sort time elapse: {elapse}" )
     return randomlist
 
 def selctionSort(randomlist, listLength):
-    start=time.time()
     for x in range(listLength):
         smallestIndex = x
         for y in range(x+1, listLength):
             if randomlist[y] < randomlist[smallestIndex]:
                 smallestIndex = y
         randomlist[x],randomlist[smallestIndex] = randomlist[smallestIndex],randomlist[x]
-    end=time.time()
-    elapse = end - start
-    print(f"selection sort time elapse: {elapse}" )
     return randomlist
 
 def insertionSort(randomlist, listLength):
-    start=time.time()
     for x in range(1, listLength):
         y = x
         while y > 0 and randomlist[y - 1] > randomlist[y]:
             randomlist[y-1], randomlist[y] = randomlist[y], randomlist[y -1]
             y -= 1
-    end=time.time()
-    elapse = end - start
-    print(f"insertion sort time elapse: {elapse}" )
     return randomlist
 
 def merge(randomlist, start, midpoint, end):
@@ -107,27 +108,19 @@ def merge(randomlist, start, midpoint, end):
             z+=1
 
 def mergeSort(randomlist, start, end):
-    start=time.time()
     if start < end:
         midpoint = (start+end) //2
 
         mergeSort(randomlist, start, midpoint)
         mergeSort(randomlist, midpoint+1, end)
         merge(randomlist, start, midpoint, end)
-    end=time.time()
-    elapse = end - start
-    print(f"merge sort time elapse: {elapse}" )
     return randomlist
 
 def quickSort(randomlist, start, end):
-    start=time.time()
     if start < end:
         pivotPoint = partition(randomlist,start, end)
         quickSort(randomlist, start, pivotPoint -1)
         quickSort(randomlist,pivotPoint +1,end)
-    end=time.time()
-    elapse = end - start
-    print(f"quick sort time elapse: {elapse}" )
     return randomlist
 
 def partition(randomlist, start, end):
@@ -139,7 +132,5 @@ def partition(randomlist, start, end):
             randomlist[index], randomlist[x]= randomlist[x], randomlist[index]
     randomlist[index +1], randomlist[end]= randomlist[end], randomlist[index+1]
     return index+1
-
-    
 
 main()
